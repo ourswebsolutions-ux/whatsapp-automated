@@ -39,38 +39,48 @@ function getWA() {
 
 // ── Window ────────────────────────────────────────────────────────────────────
 function createWindow() {
+  const iconPath = app.isPackaged
+    ? path.join(process.resourcesPath, 'icon.png')
+    : path.join(__dirname, '../../build/icon.png');
+
+
+    console.log("ICON PATH:", iconPath)
+
   mainWindow = new BrowserWindow({
-  width: 1280,
-  height: 800,
-  minWidth: 1024,
-  minHeight: 680,
-  frame: false,
-  titleBarStyle: 'hidden',
-  backgroundColor: '#1a1a2e',
+    width: 1280,
+    height: 800,
+    minWidth: 1024,
+    minHeight: 680,
+    frame: true,
+    titleBarStyle: 'hidden',
+    backgroundColor: '#1a1a2e',
 
-  icon: path.join(__dirname, '../../build/logo.png'),
+    icon: iconPath,
 
-  webPreferences: {
-    preload: path.join(__dirname, '../preload/index.js'),
-    contextIsolation: true,
-    nodeIntegration: false,
-    sandbox: false,
-    webSecurity: true,
-  },
+    webPreferences: {
+      preload: path.join(__dirname, '../preload/index.js'),
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: false,
+      webSecurity: true,
+    },
 
-  show: false,
-})
+    show: false,
+  });
 
-  mainWindow.once('ready-to-show', () => mainWindow.show())
+  mainWindow.setIcon(iconPath);
+
+  mainWindow.once('ready-to-show', () => mainWindow.show());
 
   if (isDev) {
-    mainWindow.loadURL('http://localhost:5173')
-    // mainWindow.webContents.openDevTools()   // comment out unless debugging
+    mainWindow.loadURL('http://localhost:5173');
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'))
+    mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
   }
 
-  mainWindow.on('closed', () => { mainWindow = null })
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
 }
 
 app.whenReady().then(() => {

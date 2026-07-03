@@ -1,6 +1,6 @@
 {
   "name": "whatsapp-automated",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Production-ready WhatsApp bulk messaging desktop application",
   "main": "electron/main/index.js",
   "author": {
@@ -50,7 +50,7 @@
   },
   "build": {
   "appId": "com.whatsapp.sender",
-  "productName": "whatsapp-automated",
+  "productName": "WhatsApp Automated",
   "directories": {
     "output": "dist-electron"
   },
@@ -59,13 +59,15 @@
     "electron/**/*",
     "package.json"
   ],
+  "extraResources": [
+    "build/**/*"
+  ],
   "win": {
-    "target": "nsis",
+    "target": [
+      "nsis",
+      "portable"
+    ],
     "icon": "build/icon.ico"
-  },
-  "mac": {
-    "target": "dmg",
-    "icon": "build/icon.icns"
   },
   "linux": {
     "target": [
@@ -74,13 +76,15 @@
     ],
     "icon": "build/icon.png"
   },
-  "publish": [
-    {
-      "provider": "github",
-      "owner": "ourswebsolutions-ux",
-      "repo": "whatsapp-automated"
-    }
-  ]
+  "mac": {
+    "target": "dmg",
+    "icon": "build/icon.icns"
+  },
+  "publish": {
+    "provider": "github",
+    "owner": "ourswebsolutions-ux",
+    "repo": "whatsapp-automated"
+  }
 }
   
 }
