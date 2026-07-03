@@ -3,7 +3,10 @@
   "version": "1.0.1",
   "description": "Production-ready WhatsApp bulk messaging desktop application",
   "main": "electron/main/index.js",
-  "author": "whatsapp-automated",
+  "author": {
+  "name": "Ali Hama",
+  "email": "ourswebsolutions@gmail.com"
+},
   "license": "MIT",
   "scripts": {
     "dev": "concurrently \"npm run dev:react\" \"wait-on http://localhost:5173 && npm run dev:electron\"",
