@@ -40,7 +40,7 @@ function getWA() {
 // ── Window ────────────────────────────────────────────────────────────────────
 function createWindow() {
   const iconPath = app.isPackaged
-    ? path.join(process.resourcesPath, 'icon.png')
+    ? path.join(process.resourcesPath,'build', 'icon.png')
     : path.join(__dirname, '../../build/icon.png');
 
 
