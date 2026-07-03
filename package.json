@@ -1,6 +1,6 @@
 {
   "name": "whatsapp-automated",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Production-ready WhatsApp bulk messaging desktop application",
   "main": "electron/main/index.js",
   "author": {
