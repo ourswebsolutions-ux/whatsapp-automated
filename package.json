@@ -1,0 +1,80 @@
+{
+  "name": "whatsapp-automated",
+  "version": "1.0.0",
+  "description": "Production-ready WhatsApp bulk messaging desktop application",
+  "main": "electron/main/index.js",
+  "author": "whatsapp-automated",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:react\" \"wait-on http://localhost:5173 && npm run dev:electron\"",
+    "dev:react": "vite",
+    "dev:electron": "cross-env NODE_ENV=development electron .",
+    "build": "npm run build:react && npm run build:electron",
+    "build:react": "vite build",
+    "build:electron": "electron-builder",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.18",
+    "better-sqlite3": "^12.11.1",
+    "electron-updater": "^6.8.9",
+    "jimp": "^1.6.1",
+    "link": "^2.1.0",
+    "long": "^5.3.2",
+    "pino": "^9.2.0",
+    "pino-pretty": "^11.2.1",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.2.0",
+    "electron-builder": "^24.13.3",
+    "electron-rebuild": "^3.2.9",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.6",
+    "vite": "^5.3.3",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.whatsapp.sender",
+    "productName": "whatsapp-automated",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+  "dist/**/*",
+  "electron/**/*",
+  "package.json"
+],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/logo.png"
+    }
+    
+  },
+  "publish": [
+  {
+    "provider": "github",
+    "owner": "ourswebsolutions-ux",
+    "repo": "whatsapp-automated"
+  }
+]
+}
