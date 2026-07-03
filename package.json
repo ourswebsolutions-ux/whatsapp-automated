@@ -72,7 +72,7 @@
       "AppImage",
       "deb"
     ],
-    "icon": "build/logo.png"
+    "icon": "build/icon.png"
   },
   "publish": [
     {
