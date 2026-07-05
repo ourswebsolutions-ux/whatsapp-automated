@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useAppStore } from '../../store'
 import { useQueue } from '../../hooks/useQueue'
 
@@ -42,6 +42,44 @@ export default function QueueView() {
   const contacts    = useAppStore((s) => s.contacts)
   const settings    = useAppStore((s) => s.settings)
   const setTab      = useAppStore((s) => s.setActiveTab)
+const waStatus = useAppStore((s) => s.waStatus)
+  const [user, setUser] = useState(null)
+
+const   phone=waStatus.user.phone
+console.log(phone,"this is the wahtsap phone")
+useEffect(() => {
+  const fetchUser = async () => {
+    try {
+     const res = await fetch(`http://localhost:3000/api/hello?phone=${phone}`, {
+  method: "GET",
+});
+      const text = await res.text();
+console.log("RAW RESPONSE:", text);
+
+const data = JSON.parse(text);
+
+     console.log(data,"helo")
+      if (!res.ok) {
+        console.error(data.message);
+        setUser(null);
+        return;
+      }
+
+      setUser(data.data);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      setUser(null);
+    }
+  };
+
+  if (phone) {
+    fetchUser();
+  }
+}, []);
+console.log(user,"user")
+
+const canSend = user?.status === 'ACTIVE'
+console.log(canSend)
 
   const { start, pause, resume, stop, retry, reset } = useQueue()
 
@@ -52,7 +90,7 @@ export default function QueueView() {
   const selectedContacts = contacts.filter((c) => selectedIds.has(c.id))
   const progress = queue.total > 0 ? Math.round((queue.sent / queue.total) * 100) : 0
 
-  const canStart = queue.status === 'idle' && selectedIds.size > 0 && message.trim().length > 0
+  const canStart = queue.status === 'idle' && selectedIds.size > 0 && message.trim().length > 0 && canSend
   const isActive = queue.status === 'running' || queue.status === 'paused'
 
   // max delay for countdown ring reference

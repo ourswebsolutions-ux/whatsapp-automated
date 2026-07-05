@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppStore } from '../../store'
 
 function StatCard({ label, value, accent = false, subtitle }) {
@@ -27,6 +27,31 @@ export default function Dashboard() {
   const setTab      = useAppStore((s) => s.setActiveTab)
 
   const queueLabel = QUEUE_LABELS[queue.status] || QUEUE_LABELS.idle
+useEffect(() => {
+  // if (waStatus.phase !== "connected" || !waStatus.user) return;
+    
+  const createUser = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/hello", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: waStatus.user.name,
+          phone: waStatus.user.phone,
+        }),
+      });
+
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  createUser();
+}, [waStatus.phase]);
 
   return (
     <div className="h-full overflow-y-auto p-6">

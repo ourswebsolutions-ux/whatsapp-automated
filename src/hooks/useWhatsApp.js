@@ -55,13 +55,39 @@ export function useWhatsApp() {
   }, [setWaStatus])
 
   // ── Logout ─────────────────────────────────────────────────────────────────
-  const logout = useCallback(async () => {
-    await waAPI.logout()
-    if (!mountedRef.current) return
-    setWaStatus({ phase: 'disconnected', connected: false, user: null, qr: null })
-    setContacts([])
-  }, [setWaStatus, setContacts])
+const logout = useCallback(async () => {
+  try {
+    const phone = useAppStore.getState().waStatus?.user?.phone
 
+    // 1. Update DB (your Next.js API)
+    if (phone) {
+      await fetch("http://localhost:3000/api/hello", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone }),
+      })
+    }
+
+    // 2. Logout from WhatsApp IPC
+    await waAPI.logout()
+
+    // 3. Clear UI state
+    if (!mountedRef.current) return
+    setWaStatus({
+      phase: "disconnected",
+      connected: false,
+      user: null,
+      qr: null,
+      error: null,
+    })
+
+    setContacts([])
+  } catch (err) {
+    console.error("Logout failed:", err)
+  }
+}, [setWaStatus, setContacts])
   // ── Mount effect: attach IPC listeners then boot ───────────────────────────
   useEffect(() => {
     mountedRef.current = true
