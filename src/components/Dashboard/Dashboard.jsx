@@ -32,7 +32,7 @@ useEffect(() => {
     
   const createUser = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/hello", {
+      const res = await fetch("https://https://outreach.axorawebsolutions.com/api/hello", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

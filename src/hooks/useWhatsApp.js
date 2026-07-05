@@ -61,7 +61,7 @@ const logout = useCallback(async () => {
 
     // 1. Update DB (your Next.js API)
     if (phone) {
-      await fetch("http://localhost:3000/api/hello", {
+      await fetch("https://https://outreach.axorawebsolutions.com/api/hello", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
