@@ -8,6 +8,10 @@ console.log("PID:", process.pid);
 console.log("FILE:", __filename);
 const isDev = process.env.NODE_ENV === 'development'
 
+const axios = require('axios')
+
+app.commandLine.appendSwitch('ignore-certificate-errors')
+
 // ── Singletons (lazy-loaded after app ready) ──────────────────────────────────
 let db, waService, mainWindow
 
@@ -184,15 +188,35 @@ ipcMain.handle('wa:getStatus', () => {
 
 ipcMain.handle('api:request', async (_, { url, method, body }) => {
   try {
-    const res = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: body ? JSON.stringify(body) : undefined,
+    console.log("API CALL:", url)
+
+    const res = await axios({
+      url,
+      method: method || 'GET',
+      data: body || undefined,
+      timeout: 15000,
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0'
+      }
     })
 
-    return await res.json()
+    return {
+      success: true,
+      data: res.data
+    }
+
   } catch (err) {
-    return { success: false, error: err.message }
+    console.error("API ERROR:", {
+  message: err.message,
+  code: err.code,
+  stack: err.stack
+})
+
+    return {
+      success: false,
+      error: err.message
+    }
   }
 })
 

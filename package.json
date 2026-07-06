@@ -1,12 +1,12 @@
 {
   "name": "whatsapp-automated",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Production-ready WhatsApp bulk messaging desktop application",
   "main": "electron/main/index.js",
   "author": {
-  "name": "Ali Hama",
-  "email": "ourswebsolutions@gmail.com"
-},
+    "name": "Ali Hama",
+    "email": "ourswebsolutions@gmail.com"
+  },
   "license": "MIT",
   "scripts": {
     "dev": "concurrently \"npm run dev:react\" \"wait-on http://localhost:5173 && npm run dev:electron\"",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@whiskeysockets/baileys": "^6.7.18",
+    "axios": "^1.18.1",
     "better-sqlite3": "^12.11.1",
     "electron-updater": "^6.8.9",
     "jimp": "^1.6.1",
@@ -49,42 +50,41 @@
     "wait-on": "^7.2.0"
   },
   "build": {
-  "appId": "com.whatsapp.sender",
-  "productName": "WhatsApp Automated",
-  "directories": {
-    "output": "dist-electron"
-  },
-  "files": [
-    "dist/**/*",
-    "electron/**/*",
-    "package.json"
-  ],
-  "extraResources": [
-    "build/**/*"
-  ],
-  "win": {
-    "target": [
-      "nsis",
-      "portable"
+    "appId": "com.whatsapp.sender",
+    "productName": "WhatsApp Automated",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
     ],
-    "icon": "build/icon.ico"
-  },
-  "linux": {
-    "target": [
-      "AppImage",
-      "deb"
+    "extraResources": [
+      "build/**/*"
     ],
-    "icon": "build/icon.png"
-  },
-  "mac": {
-    "target": "dmg",
-    "icon": "build/icon.icns"
-  },
-  "publish": {
-    "provider": "github",
-    "owner": "ourswebsolutions-ux",
-    "repo": "whatsapp-automated"
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icon.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.icns"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "ourswebsolutions-ux",
+      "repo": "whatsapp-automated"
+    }
   }
-}
-  
 }
