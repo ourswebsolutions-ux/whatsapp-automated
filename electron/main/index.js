@@ -6,9 +6,12 @@ const fs   = require('fs')
 console.count("MAIN PROCESS LOADED");
 console.log("PID:", process.pid);
 console.log("FILE:", __filename);
-const isDev = process.env.NODE_ENV === 'development'
+const enves ='development'
+const isDev = enves  === 'development'
 
+console.log(isDev,"sdf")
 const axios = require('axios')
+const { env } = require('process')
 
 app.commandLine.appendSwitch('ignore-certificate-errors')
 
