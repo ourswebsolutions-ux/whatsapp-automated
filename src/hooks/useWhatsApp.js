@@ -61,7 +61,7 @@ const logout = useCallback(async () => {
 
     // 1. DB update via Electron IPC (NOT direct fetch)
     if (phone) {
-      await window.electronAPI.api.request({
+      await window.electronAPI.invoke('api:request', {
         url: "https://outreach.axorawebsolutions.com/api/hello",
         method: "PUT",
         body: { phone },

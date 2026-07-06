@@ -33,7 +33,7 @@ useEffect(() => {
 
   const createUser = async () => {
   try {
-    const data = await window.electronAPI.api.request({
+    const data = await window.electronAPI.invoke('api:request', {
       url: "https://outreach.axorawebsolutions.com/api/hello",
       method: "POST",
       body: {

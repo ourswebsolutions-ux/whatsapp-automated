@@ -13,7 +13,7 @@ const ALLOWED_INVOKE = new Set([
   'contacts:getAll', 'contacts:search', 'contacts:openCsvDialog',
   'contacts:importCsv', 'contacts:exportVcf', 'contacts:removeDuplicates',
   // Settings
-  'settings:get', 'settings:save',
+  'settings:get', 'settings:save','api:request',
 ])
 
 const ALLOWED_LISTEN = new Set([

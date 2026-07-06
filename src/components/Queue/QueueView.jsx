@@ -50,12 +50,12 @@ console.log(phone,"this is the wahtsap phone")
 useEffect(() => {
   const fetchUser = async () => {
     try {
-      const res = await window.electronAPI.api.request({
+      const res = await window.electronAPI.invoke('api:request', {
         url: `https://outreach.axorawebsolutions.com/api/hello?phone=${phone}`,
         method: "GET",
       })
 
-      console.log("API RESPONSE:", res)
+      
 
       if (!res || res.success === false) {
         setUser(null)
