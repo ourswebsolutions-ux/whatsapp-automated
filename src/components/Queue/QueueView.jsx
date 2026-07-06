@@ -73,9 +73,10 @@ useEffect(() => {
     fetchUser()
   }
 }, [phone])
+
 console.log(user,"user")
 
-const canSend = user?.status === 'ACTIVE'
+const canSend = user?.data?.status === 'ACTIVE'
 console.log(canSend)
 
   const { start, pause, resume, stop, retry, reset } = useQueue()

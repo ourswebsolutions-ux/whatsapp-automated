@@ -6,7 +6,7 @@ const fs   = require('fs')
 console.count("MAIN PROCESS LOADED");
 console.log("PID:", process.pid);
 console.log("FILE:", __filename);
-const isDev = process.env.NODE_ENV === 'developm'
+const isDev = process.env.NODE_ENV === 'developme'
 
 console.log(isDev,"sdf")
 const axios = require('axios')
@@ -77,7 +77,7 @@ function createWindow() {
   });
 
   mainWindow.setIcon(iconPath);
-// mainWindow.webContents.openDevTools();
+mainWindow.webContents.openDevTools();
   mainWindow.once('ready-to-show', () => mainWindow.show());
 
   if (isDev) {
