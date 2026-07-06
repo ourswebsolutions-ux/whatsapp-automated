@@ -6,9 +6,9 @@ const fs   = require('fs')
 console.count("MAIN PROCESS LOADED");
 console.log("PID:", process.pid);
 console.log("FILE:", __filename);
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'developm'
 
-// console.l(isDev,"sdf")
+console.log(isDev,"sdf")
 const axios = require('axios')
 
 app.commandLine.appendSwitch('ignore-certificate-errors')
@@ -77,7 +77,7 @@ function createWindow() {
   });
 
   mainWindow.setIcon(iconPath);
-// mainWindow.webContents.openDevTools();
+mainWindow.webContents.openDevTools();
   mainWindow.once('ready-to-show', () => mainWindow.show());
 
   if (isDev) {
