@@ -50,32 +50,29 @@ console.log(phone,"this is the wahtsap phone")
 useEffect(() => {
   const fetchUser = async () => {
     try {
-     const res = await fetch(`https://outreach.axorawebsolutions.com/api/hello?phone=${phone}`, {
-  method: "GET",
-});
-      const text = await res.text();
-console.log("RAW RESPONSE:", text);
+      const res = await window.electronAPI.api.request({
+        url: `https://outreach.axorawebsolutions.com/api/hello?phone=${phone}`,
+        method: "GET",
+      })
 
-const data = JSON.parse(text);
+      console.log("API RESPONSE:", res)
 
-     console.log(data,"helo")
-      if (!res.ok) {
-        console.error(data.message);
-        setUser(null);
-        return;
+      if (!res || res.success === false) {
+        setUser(null)
+        return
       }
 
-      setUser(data.data);
+      setUser(res.data)
     } catch (error) {
-      console.error("Error fetching user:", error);
-      setUser(null);
+      console.error("Error fetching user:", error)
+      setUser(null)
     }
-  };
+  }
 
   if (phone) {
-    fetchUser();
+    fetchUser()
   }
-}, []);
+}, [phone])
 console.log(user,"user")
 
 const canSend = user?.status === 'ACTIVE'

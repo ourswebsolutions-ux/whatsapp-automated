@@ -40,6 +40,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
     return () => ipcRenderer.removeListener(channel, handler)
   },
 
+
+
   // ── platform info ──────────────────────────────────────────────────────────
   platform: process.platform,
+
+   api: {
+    request: (data) => ipcRenderer.invoke('api:request', data)
+  }
 })
+
+

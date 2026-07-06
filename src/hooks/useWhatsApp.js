@@ -59,22 +59,21 @@ const logout = useCallback(async () => {
   try {
     const phone = useAppStore.getState().waStatus?.user?.phone
 
-    // 1. Update DB (your Next.js API)
+    // 1. DB update via Electron IPC (NOT direct fetch)
     if (phone) {
-      await fetch("https://outreach.axorawebsolutions.com/api/hello", {
+      await window.electronAPI.api.request({
+        url: "https://outreach.axorawebsolutions.com/api/hello",
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ phone }),
+        body: { phone },
       })
     }
 
-    // 2. Logout from WhatsApp IPC
+    // 2. WhatsApp logout (IPC)
     await waAPI.logout()
 
-    // 3. Clear UI state
+    // 3. UI cleanup
     if (!mountedRef.current) return
+
     setWaStatus({
       phase: "disconnected",
       connected: false,

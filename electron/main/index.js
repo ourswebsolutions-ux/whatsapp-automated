@@ -37,6 +37,9 @@ function getWA() {
   return waService
 }
 
+
+
+
 // ── Window ────────────────────────────────────────────────────────────────────
 function createWindow() {
   const iconPath = app.isPackaged
@@ -175,6 +178,21 @@ ipcMain.handle('wa:getStatus', () => {
     return getWA().getStatus()
   } catch (_) {
     return { connected: false, qr: null, user: null, reconnecting: false }
+  }
+})
+
+
+ipcMain.handle('api:request', async (_, { url, method, body }) => {
+  try {
+    const res = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: body ? JSON.stringify(body) : undefined,
+    })
+
+    return await res.json()
+  } catch (err) {
+    return { success: false, error: err.message }
   }
 })
 

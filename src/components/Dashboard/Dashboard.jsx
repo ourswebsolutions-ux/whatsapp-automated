@@ -30,26 +30,23 @@ export default function Dashboard() {
 useEffect(() => {
   // if (waStatus.phase !== "connected" || !waStatus.user) return;
     
-  
-  const createUser = async () => {
-    try {
-      const res = await fetch("https://outreach.axorawebsolutions.com/api/hello", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: waStatus.user.name,
-          phone: waStatus.user.phone,
-        }),
-      });
 
-      const data = await res.json();
-      console.log(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const createUser = async () => {
+  try {
+    const data = await window.electronAPI.api.request({
+      url: "https://outreach.axorawebsolutions.com/api/hello",
+      method: "POST",
+      body: {
+        name: waStatus.user.name,
+        phone: waStatus.user.phone,
+      },
+    })
+
+    console.log(data)
+  } catch (err) {
+    console.error(err)
+  }
+}
 
   createUser();
 }, [waStatus.phase]);
