@@ -77,7 +77,7 @@ function createWindow() {
   });
 
   mainWindow.setIcon(iconPath);
-mainWindow.webContents.openDevTools();
+// mainWindow.webContents.openDevTools();
   mainWindow.once('ready-to-show', () => mainWindow.show());
 
   if (isDev) {
