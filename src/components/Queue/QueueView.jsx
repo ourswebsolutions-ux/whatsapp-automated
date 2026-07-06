@@ -50,7 +50,7 @@ console.log(phone,"this is the wahtsap phone")
 useEffect(() => {
   const fetchUser = async () => {
     try {
-     const res = await fetch(`https://https://outreach.axorawebsolutions.com/api/hello?phone=${phone}`, {
+     const res = await fetch(`//https://outreach.axorawebsolutions.com/api/hello?phone=${phone}`, {
   method: "GET",
 });
       const text = await res.text();
