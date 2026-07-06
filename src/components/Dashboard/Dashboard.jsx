@@ -30,6 +30,7 @@ export default function Dashboard() {
 useEffect(() => {
   // if (waStatus.phase !== "connected" || !waStatus.user) return;
     
+  
   const createUser = async () => {
     try {
       const res = await fetch("https://outreach.axorawebsolutions.com/api/hello", {
